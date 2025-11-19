@@ -62,8 +62,12 @@ apt install lightdm -y`
 
 ลบทั้งหมดแล้วใส่:
 
-`#!/bin/sh  if [ -r /etc/profile ]; then . /etc/profile fi  unset DBUS_SESSION_BUS_ADDRESS unset XDG_RUNTIME_DIR
-
+`#!/bin/sh  
+if [ -r /etc/profile ]; then 
+. /etc/profile 
+fi  
+unset DBUS_SESSION_BUS_ADDRESS 
+unset XDG_RUNTIME_DIR
 startxfce4` 
 
 ตั้งสิทธิ์:
