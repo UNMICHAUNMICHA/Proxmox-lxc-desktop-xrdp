@@ -111,7 +111,7 @@ systemctl restart xrdp-sesman`
     
 -   **Port:** 3389
     
--   **Username:** ncwjj
+-   **Username:** xxxx
     
 -   **Password:** (ของคุณ)
     
