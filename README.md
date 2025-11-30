@@ -1,4 +1,5 @@
 
+
 # 📝 **Write-up: ติดตั้ง XFCE + XRDP บน Proxmox LXC เพื่อใช้กับ Guacamole**
 
 คู่มือนี้ใช้ได้กับ **Ubuntu 22.04 / 24.04 LXC** บน Proxmox และเชื่อมเข้า Desktop ผ่าน **Guacamole (RDP)**
@@ -29,9 +30,12 @@
 
 # ✅ **2) อัปเดตระบบและติดตั้ง XFCE Desktop**
 
-`apt update  && apt upgrade -y
-apt install xfce4 xfce4-goodies -y
-apt install lightdm -y` 
+    apt update && apt upgrade -y
+    
+    apt install -y xfce4 xfce4-goodies
+    apt install -y lightdm lightdm-gtk-greeter
+    
+    apt install -y dbus dbus-x11 
 
 เลือก LightDM
 
@@ -39,27 +43,27 @@ apt install lightdm -y`
 
 # ✅ **3) ติดตั้ง XRDP**
 
-`apt install xrdp -y` 
+    apt install xrdp -y
 
 เพิ่มสิทธิ์สำคัญ:
 
-`adduser xrdp ssl-cert` 
+    adduser xrdp ssl-cert 
 
 ----------
 
 # ✅ **4) ติดตั้ง Xorg ที่ XRDP ต้องใช้**
 
-`apt install xorgxrdp xserver-xorg-core xserver-xorg -y` 
+    apt install xorgxrdp xserver-xorg-core xserver-xorg -y
 
 เปิดสิทธิ์ใช้ Xorg:
 
-`echo  "allowed_users=anybody" > /etc/X11/Xwrapper.config` 
+    echo  "allowed_users=anybody" > /etc/X11/Xwrapper.config
 
 ----------
 
 # ✅ **5) แก้ startwm.sh เพื่อบังคับใช้ XFCE**
 
-`nano /etc/xrdp/startwm.sh` 
+    nano /etc/xrdp/startwm.sh
 
 ลบทั้งหมดแล้วใส่:
 
@@ -73,13 +77,13 @@ apt install lightdm -y`
 
 ตั้งสิทธิ์:
 
-`chmod +x /etc/xrdp/startwm.sh` 
+    chmod +x /etc/xrdp/startwm.sh
 
 ----------
 
 # ✅ **6) เปิด DBus สำหรับ LXC**
 
-`apt install dbus-x11 -y` 
+    apt install dbus-x11 -y
 
 ----------
 
@@ -87,14 +91,14 @@ apt install lightdm -y`
 
 สมมติ user ชื่อ `ncwjj`:
 
-`su - ncwjj echo xfce4-session > ~/.xsession echo  "xfce4-session" > ~/.xinitrc chmod +x ~/.xsession ~/.xinitrc exit` 
+    su - ncwjj echo xfce4-session > ~/.xsession echo  "xfce4-session" > ~/.xinitrc chmod +x ~/.xsession ~/.xinitrc exit`
 
 ----------
 
 # ✅ **8) Restart XRDP**
 
-`systemctl restart xrdp
-systemctl restart xrdp-sesman` 
+    systemctl restart xrdp
+    systemctl restart xrdp-sesman
 
 เช็คสถานะ:
 
@@ -129,3 +133,4 @@ systemctl restart xrdp-sesman`
     
 
 Save แล้ว Connect
+
